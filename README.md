@@ -55,7 +55,7 @@ violence-text-classifier/
 ### 第一步：克隆 / 下载项目
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Chunn20/violence-text-classifier.git
 cd violence-text-classifier
 ```
 
