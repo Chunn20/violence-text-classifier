@@ -1,0 +1,105 @@
+# =============================================================================
+# 任务配置文件
+# saved_model_dir 是唯一路径来源：训练保存到此处，推理从此处加载
+# =============================================================================
+
+global:
+  base_model_path: "./deepseek-llm-7b-base"   # 本地 base model 路径，按需修改
+  text_col: "new_text"                          # 输入文本列，训练/推理统一使用
+  max_length: 128                               # tokenizer 最大长度
+  seed: 42
+  batch_size_train: 1
+  batch_size_eval: 1
+
+tasks:
+
+  author_gender:
+    label_col: "author_gender_final"
+    num_labels: 3
+    gold_file: "split_author_gender_final8_1_1_bool.xlsx"
+    saved_model_dir: "runs/author_gender/saved_model"   # 训练保存 & 推理加载
+    pred_col: "author_gender_finetune"
+    conf_col: "author_gender_conf"
+    id_to_label:
+      0: "female"
+      1: "male"
+      2: "unknown"
+    best_params:                                        # 来自两阶段参数搜索结果
+      learning_rate: 5.0e-6
+      weight_decay: 0.01
+      per_device_train_batch_size: 1
+      num_train_epochs: 4
+
+  victim_gender:
+    label_col: "victim_gender_final"
+    num_labels: 4
+    gold_file: "split_victim_gender_final8_1_1_bool.xlsx"
+    saved_model_dir: "runs/victim_gender/saved_model"
+    pred_col: "victim_gender_finetune"
+    conf_col: "victim_gender_conf"
+    id_to_label:
+      0: "female"
+      1: "female & male"
+      2: "male"
+      3: "unknown"
+    best_params:
+      learning_rate: 1.0e-5
+      weight_decay: 0.015
+      per_device_train_batch_size: 1
+      num_train_epochs: 4
+
+  perpetrator_gender:
+    label_col: "perpetrator_gender_final"
+    num_labels: 4
+    gold_file: "split_perpetrator_gender_final8_1_1_bool.xlsx"
+    saved_model_dir: "runs/perpetrator_gender/saved_model"
+    pred_col: "perpetrator_gender_finetune"
+    conf_col: "perpetrator_gender_conf"
+    id_to_label:
+      0: "female"
+      1: "female & male"
+      2: "male"
+      3: "unknown"
+    best_params:
+      learning_rate: 5.0e-6
+      weight_decay: 0.015
+      per_device_train_batch_size: 1
+      num_train_epochs: 4
+
+  relationship:
+    label_col: "relationship_final"
+    num_labels: 8
+    gold_file: "split_relationship_final8_1_1_bool.xlsx"
+    saved_model_dir: "runs/relationship/saved_model"
+    pred_col: "relationship_finetune"
+    conf_col: "relationship_conf"
+    id_to_label:
+      0: "dad"
+      1: "family"
+      2: "friend"
+      3: "lover"
+      4: "mom"
+      5: "other"
+      6: "parents"
+      7: "unknown"
+    best_params:
+      learning_rate: 5.0e-6
+      weight_decay: 0.005
+      per_device_train_batch_size: 1
+      num_train_epochs: 3
+
+  author_is_victim:
+    label_col: "Is the author the victim?_final"        # 原始列名保持不变
+    num_labels: 2
+    gold_file: "split_Is the author the victim?_final8_1_1_bool.xlsx"
+    saved_model_dir: "runs/author_is_victim/saved_model"
+    pred_col: "author_is_victim_finetune"
+    conf_col: "author_is_victim_conf"
+    id_to_label:
+      0: "False"
+      1: "True"
+    best_params:
+      learning_rate: 5.0e-5
+      weight_decay: 0.0
+      per_device_train_batch_size: 1
+      num_train_epochs: 4

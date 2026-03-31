@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Training outputs (large, task-specific) — keep directory skeleton
+runs/*
+!runs/.gitkeep
+
+# Inference outputs
+outputs/*
+!outputs/.gitkeep
+outputs_summary/*
+!outputs_summary/.gitkeep
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Model weights (too large for git — store separately)
+deepseek-llm-7b-base/
+*.bin
+*.safetensors
+*.pt
+*.pth
